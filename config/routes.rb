@@ -9,7 +9,9 @@ Rails.application.routes.draw do
   #    show, new, edit, create, update, and destroy actions.
   resources :users, except: [:new]
 
-
+  get 'login', to: 'sessions#new'
+  post 'login', to: 'sessions#create'
+  delete 'logout',to: 'sessions#destroy'
 
 
 
