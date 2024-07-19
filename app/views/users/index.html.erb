@@ -18,8 +18,18 @@
             </h5>
             <p class="card-text"><%= pluralize(user.articles.count, "article") %></p>
             <%= link_to "View profile", user, class: "btn btn-outline-success" %>
-            <% if logged_in? && current_user == user %>
-              <%= link_to "Edit profile", edit_user_path(user), class: "btn btn-outline-info" %>
+            <% if logged_in? %>
+              <% if current_user == user %>
+                <%= link_to "Edit profile", edit_user_path(user), class: "btn btn-outline-info" %>
+              <% end %>
+              <% if current_user.admin? %>
+                <%= link_to "Delete profile", user, 
+                      class: "btn btn-outline-danger",
+                      data:{ "turbo-method": :delete,
+                            turbo_confirm: "Are you sure you want to delete the user profile and all their articles?"
+                            }
+                %>
+              <% end %>
             <% end %>
           </div>
           <div class="card-footer text-muted">
